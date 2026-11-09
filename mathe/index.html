@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rechenfreundinnen und -freunde 1003</title>
+<title>Rechenfreundinnen und -freunde 1004</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Pixelify+Sans:wght@400;600&family=Silkscreen&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -525,6 +525,30 @@ button,.mc,.pk,.tile,.key{touch-action:manipulation}
   .bf-eq{font-size:32px;gap:8px}
   .bfin{font-size:30px;width:3em}
 }
+
+/* Froschsprung */
+.fscroll{width:100%;overflow-x:auto;overflow-y:hidden;background:#fff;box-shadow:inset -1px -1px var(--hi),inset 1px 1px var(--sh),inset -2px -2px var(--lt),inset 2px 2px var(--dk);padding:4px 0;-webkit-overflow-scrolling:touch}
+.finner{position:relative;height:150px;margin:0 auto}
+.fline{display:block}
+.fl-axis{stroke:#000;stroke-width:3}
+.fl-tick{stroke:#000;stroke-width:1.5}
+.fl-tick.big{stroke-width:2.5}
+.fl-lab{font:400 15px var(--words);fill:#000}
+.fl-lab.start{fill:var(--red);font-weight:700}
+.fl-arc{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round}
+.fl-jump{font:600 14px var(--words);fill:var(--blue)}
+.fl-hint{fill:none;stroke:var(--red);stroke-width:3;stroke-dasharray:4 3;animation:blink 1s steps(1) infinite}
+.fl-wrong{stroke:#ff00ff;stroke-width:3;stroke-linecap:round}
+.fl-hit{all:unset;position:absolute;top:56px;height:94px;cursor:pointer}
+.fl-hit:hover{background:rgba(0,0,128,.08)}
+.fl-hit:focus-visible{outline:1px dotted #000}
+.frog{position:absolute;top:58px;transform:translateX(-50%);transition:left .45s ease-in-out;pointer-events:none;line-height:0}
+.frog.hop svg{animation:hop .45s ease-in-out}
+@keyframes hop{50%{transform:translateY(-46px)}}
+[data-flat="1"] .fscroll{background:transparent;box-shadow:none;border:1.5px solid var(--ink)}
+[data-flat="1"] .fl-axis,[data-flat="1"] .fl-tick{stroke:var(--ink)}
+[data-flat="1"] .fl-lab{fill:var(--ink)}
+@media (prefers-reduced-motion:reduce){.frog{transition:none}}
 </style>
 </head>
 <body>
@@ -538,11 +562,15 @@ button,.mc,.pk,.tile,.key{touch-action:manipulation}
       <svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="1" width="14" height="14" fill="#fff"/><path d="M1 1h14v1h-14zM1 14h14v1h-14zM1 1h1v14h-1zM14 1h1v14h-1z" fill="#000"/><path d="M3 3h2v2h-2zM6 3h2v2h-2zM9 3h2v2h-2zM3 6h2v2h-2zM6 6h2v2h-2zM9 6h2v2h-2z" fill="#0000ff"/><path d="M3 9h2v2h-2zM6 9h2v2h-2zM9 9h2v2h-2zM12 3h1v1h-1zM12 6h1v1h-1zM12 9h1v1h-1zM3 12h1v1h-1zM6 12h1v1h-1zM9 12h1v1h-1zM12 12h1v1h-1z" fill="#808080"/></svg>
       <span>Malfeld</span>
     </button>
+    <button type="button" class="dicon" id="icoFrog">
+      <svg viewBox="0 0 12 8"  shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="0" width="1" height="1" fill="#00a000"/><rect x="3" y="0" width="1" height="1" fill="#00a000"/><rect x="8" y="0" width="1" height="1" fill="#00a000"/><rect x="9" y="0" width="1" height="1" fill="#00a000"/><rect x="1" y="1" width="1" height="1" fill="#00a000"/><rect x="2" y="1" width="1" height="1" fill="#ffffff"/><rect x="3" y="1" width="1" height="1" fill="#000000"/><rect x="4" y="1" width="1" height="1" fill="#00a000"/><rect x="7" y="1" width="1" height="1" fill="#00a000"/><rect x="8" y="1" width="1" height="1" fill="#ffffff"/><rect x="9" y="1" width="1" height="1" fill="#000000"/><rect x="10" y="1" width="1" height="1" fill="#00a000"/><rect x="1" y="2" width="1" height="1" fill="#00a000"/><rect x="2" y="2" width="1" height="1" fill="#00a000"/><rect x="3" y="2" width="1" height="1" fill="#00a000"/><rect x="4" y="2" width="1" height="1" fill="#00a000"/><rect x="5" y="2" width="1" height="1" fill="#00a000"/><rect x="6" y="2" width="1" height="1" fill="#00a000"/><rect x="7" y="2" width="1" height="1" fill="#00a000"/><rect x="8" y="2" width="1" height="1" fill="#00a000"/><rect x="9" y="2" width="1" height="1" fill="#00a000"/><rect x="10" y="2" width="1" height="1" fill="#00a000"/><rect x="0" y="3" width="1" height="1" fill="#00a000"/><rect x="1" y="3" width="1" height="1" fill="#00a000"/><rect x="2" y="3" width="1" height="1" fill="#00a000"/><rect x="3" y="3" width="1" height="1" fill="#00a000"/><rect x="4" y="3" width="1" height="1" fill="#00a000"/><rect x="5" y="3" width="1" height="1" fill="#00a000"/><rect x="6" y="3" width="1" height="1" fill="#00a000"/><rect x="7" y="3" width="1" height="1" fill="#00a000"/><rect x="8" y="3" width="1" height="1" fill="#00a000"/><rect x="9" y="3" width="1" height="1" fill="#00a000"/><rect x="10" y="3" width="1" height="1" fill="#00a000"/><rect x="11" y="3" width="1" height="1" fill="#00a000"/><rect x="0" y="4" width="1" height="1" fill="#00a000"/><rect x="1" y="4" width="1" height="1" fill="#00a000"/><rect x="2" y="4" width="1" height="1" fill="#005000"/><rect x="3" y="4" width="1" height="1" fill="#005000"/><rect x="4" y="4" width="1" height="1" fill="#005000"/><rect x="5" y="4" width="1" height="1" fill="#005000"/><rect x="6" y="4" width="1" height="1" fill="#005000"/><rect x="7" y="4" width="1" height="1" fill="#005000"/><rect x="8" y="4" width="1" height="1" fill="#005000"/><rect x="9" y="4" width="1" height="1" fill="#005000"/><rect x="10" y="4" width="1" height="1" fill="#00a000"/><rect x="11" y="4" width="1" height="1" fill="#00a000"/><rect x="0" y="5" width="1" height="1" fill="#00a000"/><rect x="1" y="5" width="1" height="1" fill="#00a000"/><rect x="2" y="5" width="1" height="1" fill="#00a000"/><rect x="3" y="5" width="1" height="1" fill="#00a000"/><rect x="4" y="5" width="1" height="1" fill="#00a000"/><rect x="5" y="5" width="1" height="1" fill="#00a000"/><rect x="6" y="5" width="1" height="1" fill="#00a000"/><rect x="7" y="5" width="1" height="1" fill="#00a000"/><rect x="8" y="5" width="1" height="1" fill="#00a000"/><rect x="9" y="5" width="1" height="1" fill="#00a000"/><rect x="10" y="5" width="1" height="1" fill="#00a000"/><rect x="11" y="5" width="1" height="1" fill="#00a000"/><rect x="1" y="6" width="1" height="1" fill="#00a000"/><rect x="2" y="6" width="1" height="1" fill="#00a000"/><rect x="3" y="6" width="1" height="1" fill="#00a000"/><rect x="4" y="6" width="1" height="1" fill="#00a000"/><rect x="5" y="6" width="1" height="1" fill="#00a000"/><rect x="6" y="6" width="1" height="1" fill="#00a000"/><rect x="7" y="6" width="1" height="1" fill="#00a000"/><rect x="8" y="6" width="1" height="1" fill="#00a000"/><rect x="9" y="6" width="1" height="1" fill="#00a000"/><rect x="10" y="6" width="1" height="1" fill="#00a000"/><rect x="0" y="7" width="1" height="1" fill="#00a000"/><rect x="1" y="7" width="1" height="1" fill="#00a000"/><rect x="3" y="7" width="1" height="1" fill="#00a000"/><rect x="4" y="7" width="1" height="1" fill="#00a000"/><rect x="7" y="7" width="1" height="1" fill="#00a000"/><rect x="8" y="7" width="1" height="1" fill="#00a000"/><rect x="10" y="7" width="1" height="1" fill="#00a000"/><rect x="11" y="7" width="1" height="1" fill="#00a000"/></svg>
+      <span>Froschsprung</span>
+    </button>
   </nav>
 
   <div class="window raised" role="application" aria-label="Rechenfreundinnen und -freunde">
     <div class="titlebar">
-      <span class="tt"><svg width="18" height="18" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="5" height="5" fill="#ff0000"/><rect x="9" y="2" width="5" height="5" fill="#0000ff"/><rect x="2" y="9" width="5" height="5" fill="#0000ff"/><rect x="9" y="9" width="5" height="5" fill="#ff0000"/></svg>Rechenfreundinnen und -freunde 1003</span>
+      <span class="tt"><svg width="18" height="18" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="5" height="5" fill="#ff0000"/><rect x="9" y="2" width="5" height="5" fill="#0000ff"/><rect x="2" y="9" width="5" height="5" fill="#0000ff"/><rect x="9" y="9" width="5" height="5" fill="#ff0000"/></svg>Rechenfreundinnen und -freunde 1004</span>
       <button type="button" class="tbx raised" id="btnTitleHome" aria-label="Zur Auswahl">x</button>
     </div>
     <div class="menubar">
@@ -556,7 +584,7 @@ button,.mc,.pk,.tile,.key{touch-action:manipulation}
         <div class="col">
           <div class="splash sunken">
             <div class="big">Rechen-<br>freundinnen<br><span>und -freunde</span></div>
-            <div class="ver">Version 1003 · Zahlen zum Anfassen</div>
+            <div class="ver">Version 1004 · Zahlen zum Anfassen</div>
           </div>
           <div class="field">
             <label for="childName"><span class="t-retro">Lizenziert für:</span><span class="t-fibel">Dieses Heft gehört:</span><span class="t-plot">Name:</span></label>
@@ -573,6 +601,7 @@ button,.mc,.pk,.tile,.key{touch-action:manipulation}
             <div class="levels" role="radiogroup" aria-label="Spiel">
               <button type="button" class="level game" role="radio" data-game="house"><span class="lv-name">Zahlenhaus</span><span class="lv-sub">(Zahlen zerlegen)</span></button>
               <button type="button" class="level game" role="radio" data-game="mal"><span class="lv-name">Malfeld</span><span class="lv-sub">(Malnehmen legen)</span></button>
+              <button type="button" class="level game" role="radio" data-game="frog"><span class="lv-name">Froschsprung</span><span class="lv-sub">(Geteilt als Sprünge)</span></button>
             </div>
           </fieldset>
           <fieldset class="group">
@@ -697,6 +726,7 @@ button,.mc,.pk,.tile,.key{touch-action:manipulation}
     <div class="dbody">
       <p><b>Zahlenhaus:</b> Oben im Dach steht die Hauszahl. In jedem Stockwerk wohnen zusammen genau so viele. Rot ist schon da. Wie viele blaue fehlen noch? Mit Blitzblick siehst du die Perlen nur kurz und musst sie dir merken.</p>
       <p><b>Malfeld:</b> Leg die Aufgabe als Rechteck: Tipp auf den Punkt, bis zu dem es gehen soll. 3 · 4 heißt 3 Reihen mit je 4 Punkten. Dann rechne, wie viele es sind. Die dicken Linien zeigen die Fünfer.</p>
+      <p><b>Froschsprung:</b> Der Frosch sitzt auf dem Zahlenstrahl und springt immer gleich weit zurück bis zur 0. Tipp bei jedem Sprung an, wo er landet, oder tipp die Zahl ein. Am Ende zählst du: Wie viele Sprünge waren es? Das ist das Ergebnis der Geteilt-Aufgabe.</p>
       <p><b>Sterne:</b> Ohne Fehler und ohne Spicken gibt es 3 Sterne. Fehlen Sterne, kannst du sie mit den Aufgaben-Freunden auffüllen.</p>
       <div class="m-actions"><button type="button" class="btn primary" id="hClose">OK</button></div>
     </div>
@@ -798,10 +828,11 @@ function tick(){
 }
 
 /* ---------- Aufgaben erzeugen ---------- */
-const LEN = {house:{kurz:2, mittel:3, lang:5}, mal:{kurz:5, mittel:10, lang:15}};
+const LEN = {house:{kurz:2, mittel:3, lang:5}, mal:{kurz:5, mittel:10, lang:15}, frog:{kurz:4, mittel:8, lang:12}};
 const LEVEL_TEXT = {
   house:{'1':'(zerlegen bis 20)', '2':'(bis 20 und Zehner bis 100)', '3':'(Zehner bis 200, Hunderter bis 1000)'},
-  mal:{'1':'(Verdoppeln, kleine Malaufgaben)', '2':'(kleines Einmaleins)', '3':'(Einmaleins und Geteilt)'}
+  mal:{'1':'(Verdoppeln, kleine Malaufgaben)', '2':'(kleines Einmaleins)', '3':'(Einmaleins und Geteilt)'},
+  frog:{'1':'(2er-, 5er-, 10er-Sprünge bis 20)', '2':'(Sprünge bis 50)', '3':'(Sprünge bis 100)'}
 };
 function houseSpec(level){
   if (level === '1') return Math.random() < .6 ? {u:1, n:rnd(5, 10)} : {u:1, n:rnd(11, 20)};
@@ -817,6 +848,21 @@ function makeHouseTasks(level, houses){
     const pool = shuffle(Array.from({length: spec.n + 1}, (_, i) => i).filter(a => spec.n > 4 ? (a > 0 && a < spec.n) || Math.random() < .3 : true));
     const as = pool.slice(0, Math.min(4, pool.length));
     as.forEach((a, f) => tasks.push({kind:'house', u:spec.u, n:spec.n, N:spec.u * spec.n, a, b:spec.n - a, house:h, floor:f, floors:as.length}));
+  }
+  return tasks;
+}
+function makeFrogTasks(level, count){
+  const tasks = [], seen = new Set();
+  let guard = 0;
+  while (tasks.length < count && guard++ < 500){
+    let a, b;
+    if (level === '1'){ b = pick([2, 5, 10]); a = rnd(2, Math.max(2, Math.floor(20 / b))); }
+    else if (level === '2'){ b = rnd(2, 10); a = rnd(2, Math.max(2, Math.min(8, Math.floor(50 / b)))); }
+    else { b = rnd(3, 10); a = rnd(3, 10); }
+    const key = a + 'x' + b;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    tasks.push({kind:'frog', a, b, P: a * b});
   }
   return tasks;
 }
@@ -844,7 +890,7 @@ function taskText(t, solved){
 /* ---------- Ablauf ---------- */
 function bubble(t){ $('#bubble').textContent = t; }
 function status(t){ $('#statusText').textContent = t; }
-const STEP_NAMES = {house:['Schau', 'Merk', 'Rechne', 'Prüf'], mal:['Schau', 'Leg', 'Rechne', 'Prüf']};
+const STEP_NAMES = {house:['Schau', 'Merk', 'Rechne', 'Prüf'], mal:['Schau', 'Leg', 'Rechne', 'Prüf'], frog:['Schau', 'Spring', 'Rechne', 'Prüf']};
 function setSteps(i){
   const names = STEP_NAMES[R.game];
   $$('#steps li').forEach((li, k) => {
@@ -865,7 +911,7 @@ function renderDots(){
 }
 function startRound(){
   const g = S.settings.game, lv = S.settings.level;
-  const tasks = g === 'house' ? makeHouseTasks(lv, LEN.house[S.settings.len]) : makeMalTasks(lv, LEN.mal[S.settings.len]);
+  const tasks = g === 'house' ? makeHouseTasks(lv, LEN.house[S.settings.len]) : g === 'frog' ? makeFrogTasks(lv, LEN.frog[S.settings.len]) : makeMalTasks(lv, LEN.mal[S.settings.len]);
   R = {game:g, level:lv, tasks, idx:0, results:[]};
   showScreen('play');
   beginTask();
@@ -877,7 +923,7 @@ function beginTask(){
   $('#starRow').innerHTML = '';
   $('#btnNext').hidden = true;
   renderDots();
-  if (t.kind === 'house') beginHouse(); else beginMal();
+  if (t.kind === 'house') beginHouse(); else if (t.kind === 'frog') beginFrog(); else beginMal();
 }
 
 /* Zahlenhaus */
@@ -944,14 +990,15 @@ function beginHouse(){
 function toRechne(){
   T.phase = 'rechne';
   setSteps(2);
-  renderBeads();
+  if (T.t.kind === 'house') renderBeads(); else if (T.t.kind === 'frog') renderFrog();
   padIdle(false);
   const t = T.t;
   if (t.kind === 'house'){
     bubble(`Wie viele fehlen noch bis ${fmt(t.N)}? Tipp die Zahl ein.`);
     $('#btnPeek').hidden = !S.settings.blitz;
   } else {
-    bubble(t.kind === 'div' ? (T.swapped ? 'Wie viele Punkte sind in jeder Reihe? Tipp die Zahl ein.' : 'Wie viele Reihen sind es? Tipp die Zahl ein.')  : 'Wie viele Punkte sind es zusammen? Tipp die Zahl ein.');
+    if (t.kind === 'frog') bubble(`Geschafft, der Frosch ist bei 0! Wie viele Sprünge hat er gemacht?`);
+    else bubble(t.kind === 'div' ? (T.swapped ? 'Wie viele Punkte sind in jeder Reihe? Tipp die Zahl ein.' : 'Wie viele Reihen sind es? Tipp die Zahl ein.')  : 'Wie viele Punkte sind es zusammen? Tipp die Zahl ein.');
   }
   status('Schritt 3: Rechne.');
   if (t.kind !== 'house' && window.innerWidth <= 600) setTimeout(() => { try { $('#mpad').scrollIntoView({block:'end', behavior: reduceMotion() ? 'auto' : 'smooth'}); } catch(e){} }, 60);
@@ -961,6 +1008,86 @@ function peek(){
   T.peeks++; T.shown = true; renderBeads(); bubble('Schau schnell!');
   const tok = T.tok;
   setTimeout(() => { if (T && T.tok === tok && T.phase === 'rechne' && !T.revealed){ T.shown = false; renderBeads(); bubble('Und, wie viele fehlen?'); } }, 1500);
+}
+
+
+/* Froschsprung */
+const FROG_SVG = '<svg viewBox="0 0 12 8" width="42" height="28" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="0" width="1" height="1" fill="#00a000"/><rect x="3" y="0" width="1" height="1" fill="#00a000"/><rect x="8" y="0" width="1" height="1" fill="#00a000"/><rect x="9" y="0" width="1" height="1" fill="#00a000"/><rect x="1" y="1" width="1" height="1" fill="#00a000"/><rect x="2" y="1" width="1" height="1" fill="#ffffff"/><rect x="3" y="1" width="1" height="1" fill="#000000"/><rect x="4" y="1" width="1" height="1" fill="#00a000"/><rect x="7" y="1" width="1" height="1" fill="#00a000"/><rect x="8" y="1" width="1" height="1" fill="#ffffff"/><rect x="9" y="1" width="1" height="1" fill="#000000"/><rect x="10" y="1" width="1" height="1" fill="#00a000"/><rect x="1" y="2" width="1" height="1" fill="#00a000"/><rect x="2" y="2" width="1" height="1" fill="#00a000"/><rect x="3" y="2" width="1" height="1" fill="#00a000"/><rect x="4" y="2" width="1" height="1" fill="#00a000"/><rect x="5" y="2" width="1" height="1" fill="#00a000"/><rect x="6" y="2" width="1" height="1" fill="#00a000"/><rect x="7" y="2" width="1" height="1" fill="#00a000"/><rect x="8" y="2" width="1" height="1" fill="#00a000"/><rect x="9" y="2" width="1" height="1" fill="#00a000"/><rect x="10" y="2" width="1" height="1" fill="#00a000"/><rect x="0" y="3" width="1" height="1" fill="#00a000"/><rect x="1" y="3" width="1" height="1" fill="#00a000"/><rect x="2" y="3" width="1" height="1" fill="#00a000"/><rect x="3" y="3" width="1" height="1" fill="#00a000"/><rect x="4" y="3" width="1" height="1" fill="#00a000"/><rect x="5" y="3" width="1" height="1" fill="#00a000"/><rect x="6" y="3" width="1" height="1" fill="#00a000"/><rect x="7" y="3" width="1" height="1" fill="#00a000"/><rect x="8" y="3" width="1" height="1" fill="#00a000"/><rect x="9" y="3" width="1" height="1" fill="#00a000"/><rect x="10" y="3" width="1" height="1" fill="#00a000"/><rect x="11" y="3" width="1" height="1" fill="#00a000"/><rect x="0" y="4" width="1" height="1" fill="#00a000"/><rect x="1" y="4" width="1" height="1" fill="#00a000"/><rect x="2" y="4" width="1" height="1" fill="#005000"/><rect x="3" y="4" width="1" height="1" fill="#005000"/><rect x="4" y="4" width="1" height="1" fill="#005000"/><rect x="5" y="4" width="1" height="1" fill="#005000"/><rect x="6" y="4" width="1" height="1" fill="#005000"/><rect x="7" y="4" width="1" height="1" fill="#005000"/><rect x="8" y="4" width="1" height="1" fill="#005000"/><rect x="9" y="4" width="1" height="1" fill="#005000"/><rect x="10" y="4" width="1" height="1" fill="#00a000"/><rect x="11" y="4" width="1" height="1" fill="#00a000"/><rect x="0" y="5" width="1" height="1" fill="#00a000"/><rect x="1" y="5" width="1" height="1" fill="#00a000"/><rect x="2" y="5" width="1" height="1" fill="#00a000"/><rect x="3" y="5" width="1" height="1" fill="#00a000"/><rect x="4" y="5" width="1" height="1" fill="#00a000"/><rect x="5" y="5" width="1" height="1" fill="#00a000"/><rect x="6" y="5" width="1" height="1" fill="#00a000"/><rect x="7" y="5" width="1" height="1" fill="#00a000"/><rect x="8" y="5" width="1" height="1" fill="#00a000"/><rect x="9" y="5" width="1" height="1" fill="#00a000"/><rect x="10" y="5" width="1" height="1" fill="#00a000"/><rect x="11" y="5" width="1" height="1" fill="#00a000"/><rect x="1" y="6" width="1" height="1" fill="#00a000"/><rect x="2" y="6" width="1" height="1" fill="#00a000"/><rect x="3" y="6" width="1" height="1" fill="#00a000"/><rect x="4" y="6" width="1" height="1" fill="#00a000"/><rect x="5" y="6" width="1" height="1" fill="#00a000"/><rect x="6" y="6" width="1" height="1" fill="#00a000"/><rect x="7" y="6" width="1" height="1" fill="#00a000"/><rect x="8" y="6" width="1" height="1" fill="#00a000"/><rect x="9" y="6" width="1" height="1" fill="#00a000"/><rect x="10" y="6" width="1" height="1" fill="#00a000"/><rect x="0" y="7" width="1" height="1" fill="#00a000"/><rect x="1" y="7" width="1" height="1" fill="#00a000"/><rect x="3" y="7" width="1" height="1" fill="#00a000"/><rect x="4" y="7" width="1" height="1" fill="#00a000"/><rect x="7" y="7" width="1" height="1" fill="#00a000"/><rect x="8" y="7" width="1" height="1" fill="#00a000"/><rect x="10" y="7" width="1" height="1" fill="#00a000"/><rect x="11" y="7" width="1" height="1" fill="#00a000"/></svg>';
+function frogScale(){
+  const P = T.t.P;
+  const avail = Math.max(280, ($('#vis').clientWidth || 600) - 8);
+  const u = Math.max(18, Math.floor((avail - 50) / P));
+  return {u, W: P * u + 50, x: v => 25 + v * u};
+}
+function renderFrog(){
+  const t = T.t, P = t.P, {u, W, x} = frogScale();
+  let svg = `<svg class="fline" width="${W}" height="150" viewBox="0 0 ${W} 150" aria-hidden="true">`;
+  svg += `<line class="fl-axis" x1="8" x2="${W - 8}" y1="104" y2="104"/>`;
+  for (let v = 0; v <= P; v++){
+    const big = v % 10 === 0, mid = v % 5 === 0;
+    const len = big ? 16 : mid ? 11 : 6;
+    svg += `<line class="fl-tick${big ? ' big' : ''}" x1="${x(v)}" x2="${x(v)}" y1="${104 - len / 2}" y2="${104 + len / 2}"/>`;
+    if (mid || v === P || u >= 30) svg += `<text class="fl-lab${v === P ? ' start' : ''}" x="${x(v)}" y="134" text-anchor="middle">${v}</text>`;
+  }
+  T.hops.forEach(([f, to]) => {
+    const mx = (x(f) + x(to)) / 2;
+    svg += `<path class="fl-arc" d="M${x(f)} 98 Q${mx} ${98 - Math.min(70, 18 + (f - to) * u * 0.45)} ${x(to)} 98"/>`;
+    svg += `<text class="fl-jump" x="${mx}" y="${Math.max(16, 98 - Math.min(70, 18 + (f - to) * u * 0.45) / 2 - 6)}" text-anchor="middle">−${t.b}</text>`;
+  });
+  if (T.hintAt != null) svg += `<circle class="fl-hint" cx="${x(T.hintAt)}" cy="104" r="11"/>`;
+  if (T.wrongAt != null) svg += `<path class="fl-wrong" d="M${x(T.wrongAt) - 7} 97 l14 14 M${x(T.wrongAt) + 7} 97 l-14 14"/>`;
+  svg += '</svg>';
+  let hits = '';
+  if (T.phase === 'spring') for (let v = 0; v < T.pos; v++) hits += `<button type="button" class="fl-hit" data-v="${v}" style="left:${x(v) - u / 2}px;width:${u}px" aria-label="Landeplatz ${v}"></button>`;
+  const from = T.prevPos != null ? T.prevPos : T.pos;
+  $('#vis').innerHTML = `<div class="fscroll" id="fscroll"><div class="finner" style="width:${W}px">${svg}${hits}<div class="frog" id="frog" style="left:${x(from)}px">${FROG_SVG}</div></div></div>`;
+  const sc = $('#fscroll');
+  try { sc.scrollLeft = Math.max(0, x(T.pos) - sc.clientWidth / 2); } catch(e){}
+  if (T.prevPos != null && T.prevPos !== T.pos){
+    const fr = $('#frog');
+    requestAnimationFrame(() => requestAnimationFrame(() => { fr.style.left = x(T.pos) + 'px'; fr.classList.add('hop'); }));
+  }
+  T.prevPos = null;
+  if (t.kind === 'frog'){
+    $('#visLabel').textContent = T.phase === 'spring'
+      ? `Der Frosch springt immer ${t.b} zurück. Tipp auf die Zahl, wo er landet – oder tipp sie rechts ein.`
+      : `${T.hops.length} ${T.hops.length === 1 ? 'Sprung' : 'Sprünge'} zu je ${t.b}`;
+  }
+}
+function beginFrog(){
+  const t = T.t;
+  $('#mleft').innerHTML = '';
+  $('#mgrid').classList.add('nohouse');
+  $('#eq').innerHTML = `${t.P} : ${t.b} = <span class="q">&nbsp;</span>`;
+  $('#btnLaid').hidden = true; $('#btnPeek').hidden = true;
+  T.pos = t.P; T.hops = []; T.posMiss = 0; T.hintAt = null; T.wrongAt = null;
+  T.phase = 'spring';
+  setSteps(1);
+  setPad(''); padIdle(false);
+  renderFrog();
+  bubble(`Der Frosch sitzt bei ${t.P} und springt immer ${t.b} zurück. Wo landet er?`);
+  status('Schritt 2: Spring mit dem Frosch zurück bis 0.');
+}
+function frogGuess(v){
+  if (!T || T.phase !== 'spring') return;
+  const t = T.t, want = T.pos - t.b;
+  if (v === want){
+    sfx('ok', T.hops.length + 2);
+    T.hops.push([T.pos, want]);
+    T.prevPos = T.pos; T.pos = want; T.posMiss = 0; T.hintAt = null; T.wrongAt = null;
+    if (T.lastWrong){ playClip('fixed'); T.lastWrong = false; T.hadWrong = true; }
+    if (want === 0){ T.phase = 'rechne'; renderFrog(); setTimeout(() => { if (T && T.t === t) toRechne(); }, 500); return; }
+    renderFrog();
+    bubble(pick([`Richtig, ${want}! Und weiter: wieder ${t.b} zurück.`, `Genau, bei ${want}. Wo landet er als Nächstes?`, `${want} stimmt! Noch einmal ${t.b} zurück.`]));
+  } else {
+    miss(); T.posMiss++;
+    T.wrongAt = v >= 0 && v <= t.P ? v : null;
+    if (T.posMiss >= 2){ T.hintAt = want; bubble(`Tipp: Von ${T.pos} zählst du ${t.b} zurück. Der Kreis zeigt die Stelle.`); }
+    else bubble(v > T.pos ? 'Der Frosch springt zurück, also nach links!' : `Nicht ganz. Zähl von ${T.pos} genau ${t.b} zurück.`);
+    renderFrog();
+    const tok = T.tok;
+    setTimeout(() => { if (T && T.tok === tok && T.wrongAt != null){ T.wrongAt = null; renderFrog(); } }, 900);
+  }
 }
 
 /* Malfeld */
@@ -1015,7 +1142,8 @@ function laidCheck(){
 function setPad(v){ T.input = v; $('#padOut').textContent = v || ' '; }
 function padIdle(on){ $('#mpad').classList.toggle('idle', on); $$('#pad .pk').forEach(b => { b.disabled = on; }); }
 function padKey(k){
-  if (!T || T.phase !== 'rechne') return;
+  if (!T || (T.phase !== 'rechne' && T.phase !== 'spring')) return;
+  if (T.phase === 'spring' && k === 'ok'){ if (T.input) frogGuess(Number(T.input)); setPad(''); return; }
   if (k === 'del'){ setPad(T.input.slice(0, -1)); return; }
   if (k === 'ok'){ checkAnswer(); return; }
   if (T.input.length >= 4) return;
@@ -1030,6 +1158,7 @@ function miss(){
 function hintText(){
   const t = T.t;
   if (t.kind === 'house') return `Tipp: Zähl von ${fmt(t.a * t.u)} weiter bis ${fmt(t.N)}.`;
+  if (t.kind === 'frog') return 'Tipp: Zähl die Bögen über dem Zahlenstrahl.';
   if (t.kind === 'div') return T.swapped ? 'Tipp: Zähl die Punkte in einer Reihe.' : 'Tipp: Zähl die Reihen im Feld.';
   const big = Math.max(t.a, t.b), small = Math.min(t.a, t.b);
   if (big > 5) return `Tipp: 5 · ${small} = ${5 * small}. Dann noch ${big - 5} · ${small} dazu.`;
@@ -1073,6 +1202,7 @@ function solved(){
   let msg = stars === 3 ? `${pick(['Super', 'Klasse', 'Spitze', 'Prima', 'Stark'])}${nm}! Fehlerfrei!` : stars === 2 ? `Gut gemacht${nm}!` : `Geschafft${nm}!`;
   if (t.kind === 'house'){ T.shown = true; renderBeads(); renderHouse(); msg += ` ${fmt(t.a * t.u)} und ${fmt(t.b * t.u)} sind zusammen ${fmt(t.N)}.`; }
   else if (t.kind === 'mal'){ msg += t.a !== t.b ? ` Tauschaufgabe: ${t.b} · ${t.a} = ${t.P}.` : ` Das ist eine Quadrataufgabe.`; renderGrid(); }
+  else if (t.kind === 'frog'){ msg += ` ${t.a} Sprünge zu je ${t.b}: ${t.a} · ${t.b} = ${t.P}.`; renderFrog(); }
   else { msg += ` Malaufgabe dazu: ${t.a} · ${t.b} = ${t.P}.`; renderGrid(); }
   bubble(msg);
   status('Schritt 4: Prüf. Aufgabe geschafft.');
@@ -1202,6 +1332,7 @@ function renderStart(){
   $('#optSound').checked = !!st.sound;
   $('#gameNote').textContent = st.game === 'house'
     ? `Zahlenhaus: ${LEN.house[st.len]} Häuser mit je 4 Stockwerken. Im Dach steht die Hauszahl, in jedem Stockwerk wohnen zusammen genau so viele.`
+    : st.game === 'frog' ? `Froschsprung: ${LEN.frog[st.len]} Aufgaben. Der Frosch springt in gleich großen Sprüngen zurück bis zur 0. Wie viele Sprünge braucht er?`
     : `Malfeld: ${LEN.mal[st.len]} Aufgaben. Leg jede Aufgabe als Rechteck ins Hunderterfeld, dann rechne.`;
   $('#totalStars').textContent = S.totalStars;
   if (document.activeElement !== $('#childName')) $('#childName').value = S.name || '';
@@ -1221,9 +1352,11 @@ function bind(){
   $('#childName').addEventListener('input', e => { S.name = e.target.value.trim().slice(0, 16); save(); });
   $('#btnStart').addEventListener('click', startRound);
   $('#icoHouse').addEventListener('click', () => { if (current === 'start'){ S.settings.game = 'house'; save(); renderStart(); } });
+  $('#icoFrog').addEventListener('click', () => { if (current === 'start'){ S.settings.game = 'frog'; save(); renderStart(); } });
   $('#icoMal').addEventListener('click', () => { if (current === 'start'){ S.settings.game = 'mal'; save(); renderStart(); } });
   $('#pad').addEventListener('click', e => { const b = e.target.closest('.pk'); if (b) padKey(b.dataset.k); });
   $('#vis').addEventListener('click', e => {
+    const h = e.target.closest('.fl-hit'); if (h){ frogGuess(+h.dataset.v); return; }
     const c = e.target.closest('.mc'); if (!c || !T || T.phase !== 'leg') return;
     T.rows = +c.dataset.r; T.cols = +c.dataset.c; sfx('ok', T.rows + T.cols); renderGrid();
     try { const again = $(`.mc[data-r="${T.rows}"][data-c="${T.cols}"]`); if (again) again.focus({preventScroll:true}); } catch(err){}
@@ -1256,7 +1389,7 @@ function bind(){
     const tag = (e.target && e.target.tagName || '').toLowerCase();
     if (tag === 'input' || tag === 'textarea' || e.ctrlKey || e.metaKey || e.altKey) return;
     if (current !== 'play' || !T) return;
-    if (T.phase === 'rechne'){
+    if (T.phase === 'rechne' || T.phase === 'spring'){
       if (/^[0-9]$/.test(e.key)){ e.preventDefault(); padKey(e.key); }
       else if (e.key === 'Backspace'){ e.preventDefault(); padKey('del'); }
       else if (e.key === 'Enter'){ e.preventDefault(); padKey('ok'); }
