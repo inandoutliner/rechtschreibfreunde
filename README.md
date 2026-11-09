@@ -1,5 +1,6 @@
 # Rechtschreibfreundinnen und -freunde
 
-Rechtschreib-Lernseite für Kinder der 1. bis 3. Klasse: Schau, merk, schreib!
+Lernseiten für Kinder der 1. bis 3. Klasse.
 
-Online: https://inandoutliner.github.io/rechtschreibfreunde/
+- Deutsch (Schau, merk, schreib!): https://inandoutliner.github.io/rechtschreibfreunde/
+- Mathe (Rechenfreundinnen und -freunde: Zahlenhaus, Malfeld): https://inandoutliner.github.io/rechtschreibfreunde/mathe/
