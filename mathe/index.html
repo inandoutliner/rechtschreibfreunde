@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rechenfreundinnen und -freunde 1002</title>
+<title>Rechenfreundinnen und -freunde 1003</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Pixelify+Sans:wght@400;600&family=Silkscreen&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -542,7 +542,7 @@ button,.mc,.pk,.tile,.key{touch-action:manipulation}
 
   <div class="window raised" role="application" aria-label="Rechenfreundinnen und -freunde">
     <div class="titlebar">
-      <span class="tt"><svg width="18" height="18" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="5" height="5" fill="#ff0000"/><rect x="9" y="2" width="5" height="5" fill="#0000ff"/><rect x="2" y="9" width="5" height="5" fill="#0000ff"/><rect x="9" y="9" width="5" height="5" fill="#ff0000"/></svg>Rechenfreundinnen und -freunde 1002</span>
+      <span class="tt"><svg width="18" height="18" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="5" height="5" fill="#ff0000"/><rect x="9" y="2" width="5" height="5" fill="#0000ff"/><rect x="2" y="9" width="5" height="5" fill="#0000ff"/><rect x="9" y="9" width="5" height="5" fill="#ff0000"/></svg>Rechenfreundinnen und -freunde 1003</span>
       <button type="button" class="tbx raised" id="btnTitleHome" aria-label="Zur Auswahl">x</button>
     </div>
     <div class="menubar">
@@ -556,7 +556,7 @@ button,.mc,.pk,.tile,.key{touch-action:manipulation}
         <div class="col">
           <div class="splash sunken">
             <div class="big">Rechen-<br>freundinnen<br><span>und -freunde</span></div>
-            <div class="ver">Version 1002 · Zahlen zum Anfassen</div>
+            <div class="ver">Version 1003 · Zahlen zum Anfassen</div>
           </div>
           <div class="field">
             <label for="childName"><span class="t-retro">Lizenziert für:</span><span class="t-fibel">Dieses Heft gehört:</span><span class="t-plot">Name:</span></label>
@@ -951,7 +951,7 @@ function toRechne(){
     bubble(`Wie viele fehlen noch bis ${fmt(t.N)}? Tipp die Zahl ein.`);
     $('#btnPeek').hidden = !S.settings.blitz;
   } else {
-    bubble(t.kind === 'div' ? 'Wie viele Reihen sind es? Tipp die Zahl ein.' : 'Wie viele Punkte sind es zusammen? Tipp die Zahl ein.');
+    bubble(t.kind === 'div' ? (T.swapped ? 'Wie viele Punkte sind in jeder Reihe? Tipp die Zahl ein.' : 'Wie viele Reihen sind es? Tipp die Zahl ein.')  : 'Wie viele Punkte sind es zusammen? Tipp die Zahl ein.');
   }
   status('Schritt 3: Rechne.');
   if (t.kind !== 'house' && window.innerWidth <= 600) setTimeout(() => { try { $('#mpad').scrollIntoView({block:'end', behavior: reduceMotion() ? 'auto' : 'smooth'}); } catch(e){} }, 60);
@@ -975,7 +975,7 @@ function renderGrid(){
   }
   $('#vis').innerHTML = `<div class="mf${locked ? ' locked' : ''}" id="mf">${h}</div>`;
   const pts = T.rows * T.cols;
-  if (t.kind === 'div') $('#visLabel').textContent = T.rows ? `${T.rows} Reihen mit je ${T.cols} Punkten · ${pts} von ${t.P} Punkten` : `Leg ${t.P} Punkte in Reihen mit je ${t.b}.`;
+  if (t.kind === 'div') $('#visLabel').textContent = T.rows ? `${T.rows} Reihen mit je ${T.cols} Punkten · ${pts} von ${t.P} Punkten` : `Leg ${t.P} Punkte, immer ${t.b} zusammen.`;
   else $('#visLabel').textContent = T.rows ? `${T.rows} ${T.rows === 1 ? 'Reihe' : 'Reihen'} mit je ${T.cols} ${T.cols === 1 ? 'Punkt' : 'Punkten'}` : 'Tipp auf einen Punkt im Feld.';
 }
 function beginMal(){
@@ -989,13 +989,13 @@ function beginMal(){
   $('#btnPeek').hidden = true;
   $('#btnLaid').hidden = false;
   renderGrid();
-  bubble(t.kind === 'div' ? `Leg ${t.P} Punkte in Reihen mit je ${t.b}. Tipp auf den letzten Punkt.` : `Leg ${t.a} Reihen mit je ${t.b} Punkten. Tipp auf den Punkt unten rechts.`);
+  bubble(t.kind === 'div' ? `Leg ${t.P} Punkte, immer ${t.b} zusammen – nebeneinander oder untereinander. Tipp auf den letzten Punkt.` : `Leg ${t.a} Reihen mit je ${t.b} Punkten. Tipp auf den Punkt unten rechts.`);
   status('Schritt 2: Leg die Aufgabe ins Feld.');
 }
 function laidCheck(){
   if (!T || T.phase !== 'leg') return;
   const t = T.t;
-  const ok = (T.rows === t.a && T.cols === t.b) || (t.kind === 'mal' && T.rows === t.b && T.cols === t.a);
+  const ok = (T.rows === t.a && T.cols === t.b) || (T.rows === t.b && T.cols === t.a);
   if (ok){
     sfx('ok', 6);
     T.swapped = T.rows !== t.a;
@@ -1003,11 +1003,11 @@ function laidCheck(){
     toRechne();
     $('#btnLaid').hidden = true;
     renderGrid();
-    if (T.swapped) bubble(`Andersherum gelegt – das ist die Tauschaufgabe, gleich viele! ${t.kind === 'div' ? 'Wie viele Reihen sind es?' : 'Wie viele Punkte sind es?'}`);
+    if (T.swapped) bubble(t.kind === 'div' ? `Auch richtig: ${t.b} Reihen untereinander, zusammen ${t.P}. Wie viele Punkte sind in jeder Reihe?` : `Andersherum gelegt – das ist die Tauschaufgabe, gleich viele! Wie viele Punkte sind es?`);
   } else {
     miss();
     if (T.miss >= 2){ T.ghost = true; renderGrid(); bubble('Tipp: Die rot gestrichelten Punkte zeigen das richtige Rechteck.'); }
-    else bubble(t.kind === 'div' ? `Zähl nochmal: Jede Reihe hat ${t.b} Punkte, zusammen ${t.P}.` : 'Zähl nochmal: Wie viele Reihen? Wie viele Punkte in jeder Reihe?');
+    else bubble(t.kind === 'div' ? `Zähl nochmal: Immer ${t.b} gehören zusammen, nebeneinander oder untereinander, zusammen ${t.P}.` : 'Zähl nochmal: Wie viele Reihen? Wie viele Punkte in jeder Reihe?');
   }
 }
 
@@ -1030,7 +1030,7 @@ function miss(){
 function hintText(){
   const t = T.t;
   if (t.kind === 'house') return `Tipp: Zähl von ${fmt(t.a * t.u)} weiter bis ${fmt(t.N)}.`;
-  if (t.kind === 'div') return `Tipp: Zähl die Reihen im Feld.`;
+  if (t.kind === 'div') return T.swapped ? 'Tipp: Zähl die Punkte in einer Reihe.' : 'Tipp: Zähl die Reihen im Feld.';
   const big = Math.max(t.a, t.b), small = Math.min(t.a, t.b);
   if (big > 5) return `Tipp: 5 · ${small} = ${5 * small}. Dann noch ${big - 5} · ${small} dazu.`;
   return `Tipp: Zähl die Reihen in ${small}er-Schritten: ${Array.from({length: big}, (_, i) => (i + 1) * small).slice(0, 3).join(', ')} …`;
