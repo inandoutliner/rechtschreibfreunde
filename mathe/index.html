@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rechenfreundinnen und -freunde 1001</title>
+<title>Rechenfreundinnen und -freunde 1002</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Pixelify+Sans:wght@400;600&family=Silkscreen&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -468,6 +468,63 @@ button{font-family:var(--ui)}
   .it.platte{width:52px;height:52px}
 }
 
+
+/* ---------- Handy (nur schmale Bildschirme) ---------- */
+button,.mc,.pk,.tile,.key{touch-action:manipulation}
+@media (max-width:600px){
+  body{font-size:16px}
+  .titlebar .tt{font-size:14px}
+  .menubar{padding:2px}
+  .menubar button{font-size:15px;padding:3px 6px}
+  .wbody{padding:8px 8px 10px}
+  .statusbar{font-size:13px}
+  .splash{padding:12px 14px}
+  .splash .big{font-size:26px}
+  .start{gap:12px}
+  .col{gap:12px}
+  .btn.big{font-size:19px;padding:10px 20px;min-height:48px}
+  .play-top{gap:6px}
+  .counter{min-width:48px;font-size:15px}
+  .steps{margin-top:8px}
+  .steps li{padding:3px 8px 2px;font-size:14px}
+  .panel{padding:8px 8px 10px}
+  .stage{min-height:0;padding:6px 8px;gap:8px}
+  .stage .info{width:24px;height:24px}
+  .bubble{font-size:15px}
+  .pstar{width:20px;height:20px}
+  .actions{margin:6px 0 8px;gap:6px}
+  .actions .btn{min-height:42px;font-size:16px;padding:6px 12px}
+  .end h1{font-size:24px}
+  .end-list{max-height:none}
+  .dlg .dbody{padding:10px 12px}
+}
+
+@media (max-width:600px){
+  .eq{font-size:32px;margin:6px 0}
+  .mgrid,.mgrid.nohouse{gap:10px;align-items:start}
+  .mgrid{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"right right" "left pad"}
+  .mgrid.nohouse{grid-template-columns:minmax(0,1fr);grid-template-areas:"right" "pad"}
+  .mright{grid-area:right}
+  .mleft{grid-area:left;justify-self:start}
+  .mpad{grid-area:pad;width:100%;max-width:300px;justify-self:end;gap:6px}
+  .mgrid.nohouse .mpad{justify-self:center}
+  .mgrid.nohouse .mpad.idle{display:none}
+  .vis{min-height:0}
+  .vislabel{font-size:14px;min-height:0}
+  .beads{padding:8px 10px;gap:6px}
+  .brow{gap:3px}
+  .brow .gap{width:8px}
+  .house{width:130px}
+  .roof{height:52px;font-size:24px;padding-bottom:6px}
+  .room{font-size:21px;min-height:38px;padding:7px 2px}
+  .padout{font-size:28px;min-height:46px;padding:6px 10px}
+  .pad{gap:5px}
+  .pk{height:44px;font-size:22px}
+  .pk.small{font-size:13px}
+  .pk.ok{font-size:17px}
+  .bf-eq{font-size:32px;gap:8px}
+  .bfin{font-size:30px;width:3em}
+}
 </style>
 </head>
 <body>
@@ -485,7 +542,7 @@ button{font-family:var(--ui)}
 
   <div class="window raised" role="application" aria-label="Rechenfreundinnen und -freunde">
     <div class="titlebar">
-      <span class="tt"><svg width="18" height="18" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="5" height="5" fill="#ff0000"/><rect x="9" y="2" width="5" height="5" fill="#0000ff"/><rect x="2" y="9" width="5" height="5" fill="#0000ff"/><rect x="9" y="9" width="5" height="5" fill="#ff0000"/></svg>Rechenfreundinnen und -freunde 1001</span>
+      <span class="tt"><svg width="18" height="18" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="5" height="5" fill="#ff0000"/><rect x="9" y="2" width="5" height="5" fill="#0000ff"/><rect x="2" y="9" width="5" height="5" fill="#0000ff"/><rect x="9" y="9" width="5" height="5" fill="#ff0000"/></svg>Rechenfreundinnen und -freunde 1002</span>
       <button type="button" class="tbx raised" id="btnTitleHome" aria-label="Zur Auswahl">x</button>
     </div>
     <div class="menubar">
@@ -499,7 +556,7 @@ button{font-family:var(--ui)}
         <div class="col">
           <div class="splash sunken">
             <div class="big">Rechen-<br>freundinnen<br><span>und -freunde</span></div>
-            <div class="ver">Version 1001 · Zahlen zum Anfassen</div>
+            <div class="ver">Version 1002 · Zahlen zum Anfassen</div>
           </div>
           <div class="field">
             <label for="childName"><span class="t-retro">Lizenziert für:</span><span class="t-fibel">Dieses Heft gehört:</span><span class="t-plot">Name:</span></label>
@@ -897,6 +954,7 @@ function toRechne(){
     bubble(t.kind === 'div' ? 'Wie viele Reihen sind es? Tipp die Zahl ein.' : 'Wie viele Punkte sind es zusammen? Tipp die Zahl ein.');
   }
   status('Schritt 3: Rechne.');
+  if (t.kind !== 'house' && window.innerWidth <= 600) setTimeout(() => { try { $('#mpad').scrollIntoView({block:'end', behavior: reduceMotion() ? 'auto' : 'smooth'}); } catch(e){} }, 60);
 }
 function peek(){
   if (!T || T.phase !== 'rechne' || T.t.kind !== 'house' || T.shown) return;
