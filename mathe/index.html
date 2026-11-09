@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rechenfreundinnen und -freunde 1000</title>
+<title>Rechenfreundinnen und -freunde 1001</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Pixelify+Sans:wght@400;600&family=Silkscreen&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -485,7 +485,7 @@ button{font-family:var(--ui)}
 
   <div class="window raised" role="application" aria-label="Rechenfreundinnen und -freunde">
     <div class="titlebar">
-      <span class="tt"><svg width="18" height="18" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="5" height="5" fill="#ff0000"/><rect x="9" y="2" width="5" height="5" fill="#0000ff"/><rect x="2" y="9" width="5" height="5" fill="#0000ff"/><rect x="9" y="9" width="5" height="5" fill="#ff0000"/></svg>Rechenfreundinnen und -freunde 1000</span>
+      <span class="tt"><svg width="18" height="18" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="2" width="5" height="5" fill="#ff0000"/><rect x="9" y="2" width="5" height="5" fill="#0000ff"/><rect x="2" y="9" width="5" height="5" fill="#0000ff"/><rect x="9" y="9" width="5" height="5" fill="#ff0000"/></svg>Rechenfreundinnen und -freunde 1001</span>
       <button type="button" class="tbx raised" id="btnTitleHome" aria-label="Zur Auswahl">x</button>
     </div>
     <div class="menubar">
@@ -499,7 +499,7 @@ button{font-family:var(--ui)}
         <div class="col">
           <div class="splash sunken">
             <div class="big">Rechen-<br>freundinnen<br><span>und -freunde</span></div>
-            <div class="ver">Version 1000 · Zahlen zum Anfassen</div>
+            <div class="ver">Version 1001 · Zahlen zum Anfassen</div>
           </div>
           <div class="field">
             <label for="childName"><span class="t-retro">Lizenziert für:</span><span class="t-fibel">Dieses Heft gehört:</span><span class="t-plot">Name:</span></label>
@@ -708,11 +708,11 @@ function speak(text){
 function stopClip(){ if (curAudio){ try { curAudio.pause(); } catch(e){} curAudio = null; } }
 function playClip(cat){
   const list = CLIPS[cat] || [];
-  if (!S.settings.sound || !list.length) return false;
+  if (!S.settings.sound || !list.length) return null;
   stopClip();
   try { speechSynthesis.cancel(); } catch(e){}
-  try { curAudio = new Audio(pick(list).url); const p = curAudio.play(); if (p && p.catch) p.catch(() => {}); } catch(e){ return false; }
-  return true;
+  try { curAudio = new Audio(pick(list).url); const p = curAudio.play(); if (p && p.catch) p.catch(() => {}); } catch(e){ return null; }
+  return curAudio;
 }
 
 /* ---------- Sterne & Konfetti ---------- */
@@ -996,7 +996,14 @@ function solved(){
   setSteps(3);
   padIdle(true);
   $('#btnPeek').hidden = true;
-  if (T.lastWrong) setTimeout(() => playClip('fixed'), 50);
+  scheduleNext();
+  const hold = T.hold();
+  const sayAndRelease = (cat, fallback, delay) => setTimeout(() => {
+    const a = playClip(cat);
+    if (a){ a.addEventListener('ended', hold); a.addEventListener('error', hold); setTimeout(hold, 8000); }
+    else { if (fallback) speak(fallback); hold(); }
+  }, delay);
+  if (T.lastWrong) sayAndRelease('fixed', null, 50);
   const pen = T.miss + T.peeks;
   const stars = pen === 0 ? 3 : pen <= 2 ? 2 : 1;
   R.results.push({t, stars});
@@ -1013,11 +1020,20 @@ function solved(){
   status('Schritt 4: Prüf. Aufgabe geschafft.');
   renderDots();
   sfx('win');
-  if (!T.lastWrong) setTimeout(() => { if (!playClip(stars === 3 ? 'perfect' : 'done')) speak(stars === 3 ? 'Super!' : 'Gut gemacht!'); }, 500);
+  if (!T.lastWrong) sayAndRelease(stars === 3 ? 'perfect' : 'done', stars === 3 ? 'Super!' : 'Gut gemacht!', 500);
   if (stars === 3){ const r = $('#eq').getBoundingClientRect(); confetti({n:30, x:r.left + r.width / 2, y:r.top + r.height / 2}); }
-  $('#btnNext').hidden = false;
-  $('#btnNext').textContent = R.idx >= R.tasks.length - 1 ? 'Fertig!' : 'Weiter';
-  try { $('#btnNext').focus({preventScroll:true}); } catch(e){}
+}
+/* Nach dem Lösen geht es von selbst weiter: frühestens nach 3 Sekunden und erst, wenn der Spruch zu Ende ist. */
+function scheduleNext(){
+  const tok = T.tok;
+  let timeUp = false, pending = 0;
+  const go = () => { if (T && T.tok === tok && T.phase === 'pruef' && timeUp && pending === 0) nextTask(); };
+  setTimeout(() => { timeUp = true; go(); }, 3000);
+  T.hold = () => {
+    pending++;
+    let done = false;
+    return () => { if (done) return; done = true; pending--; setTimeout(go, 300); };
+  };
 }
 function nextTask(){
   if (!T || T.phase !== 'pruef') return;
